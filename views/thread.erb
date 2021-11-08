@@ -8,6 +8,11 @@
         color: #fff;
       }
 
+      body {
+        background: #FCF8F2;
+        color: #2a292e;
+      }
+
       .messageContent {
         font-family: "Georgia";
         font-size: 18px;
@@ -46,6 +51,13 @@
       .attachedFiles {
         display: none;
       }
+
+      .meta {
+        font-family: Georgia;
+        font-weight: 700;
+        font-size: 20px;
+        color: #241149;
+      }
     </style>
   </head>
   <body>
@@ -53,8 +65,8 @@
       <div class="row align-items-center">
         <div class="col-8 offset-md-2">
           <% @posts.each do |post| %>
-            <div style="font-family: Georgia; font-weight: 700; font-size: 20px; color: #fff;">
-              <%= post[:timestamp] %> by <%= post[:author] %> // <%= post[:number] %>
+            <div class="meta">
+              <%= post[:timestamp] %> <!-- by <%= post[:author] %>-->
             </div>
             <%= post[:content] %>
           <% end %>

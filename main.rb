@@ -34,7 +34,7 @@ get "/:author/:thread_id" do
   @posts.each_with_index do |post, idx|
     @posts[idx][:content] = post[:content].
       split("<br>").
-      map { |chunk| "<p>" + chunk + "</p>" }.
+      map { |chunk| "<p>" + chunk.strip + "</p>" }.
       join("\n")
   end
 
