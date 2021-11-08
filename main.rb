@@ -14,7 +14,11 @@ end
 
 get "/:author/:thread_id" do
   start_number = params.fetch(:after, 0).to_i
-  @thread = db[:threads].where(id: params[:thread_id]).first
+  thread_number = params[:thread_id].split(".").last
+
+  @thread = db[:threads].
+    where(Sequel.like(:id, "%#{thread_number}%")).
+    first
 
   scope = db[:posts].
     where(thread_id: @thread[:id]).
