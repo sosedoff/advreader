@@ -1,0 +1,3 @@
+<% @threads.each do |thread| %>
+  <div><a href="/<%= thread[:author] %>/<%= thread[:id] %>"><%= thread[:id] %></div>
+<% end %>

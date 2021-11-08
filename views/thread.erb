@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+      body {
+        padding: 50px;
+        background: #212322;
+        color: #fff;
+      }
+
+      .messageContent {
+        font-family: "Georgia";
+        font-size: 18px;
+        border-bottom: 3px dashed #cfcfcf;
+        margin-bottom: 25px;
+      }
+
+      .messageContent img {
+        min-width: 100%;
+        max-width: 100%;
+        margin: 12px 0px 25px 0px;
+      }
+
+      .messageContent a {
+        color: #fd6c09;
+      }
+
+      blockquote.quoteContainer .quote {
+        background: #333;
+        padding: 8px;
+      }
+
+      blockquote.quoteContainer .quoteExpand {
+        display: none;
+      }
+
+      blockquote.messageText {
+        line-height: 1.4;
+      }
+
+      .navigation {
+        padding: 12px 0px;
+        text-align: center;
+      }
+
+      .attachedFiles {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-8 offset-md-2">
+          <% @posts.each do |post| %>
+            <div style="font-family: Georgia; font-weight: 700; font-size: 20px; color: #fff;">
+              <%= post[:timestamp] %> by <%= post[:author] %> // <%= post[:number] %>
+            </div>
+            <%= post[:content] %>
+          <% end %>
+
+          <% if @next_id %>
+            <div class="navigation">
+              <a href="/<%= @thread[:author] %>/<%= @thread[:id] %>?after=<%= @next_id %>" class="btn btn-primary">Next Page</a>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
