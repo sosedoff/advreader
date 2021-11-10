@@ -7,6 +7,26 @@ require "sequel"
 
 db = Sequel.sqlite("db.sqlite")
 
+def cleanup_content(input)
+  parts = input.
+    split("<br>").
+    map { |chunk| "<p>" + chunk.strip + "</p>" }
+
+  result = []
+  last_idx = 0
+
+  parts.each do |part|
+    if part.gsub(/<img [^>]+>/, "").gsub(/\s/, "").strip.length == 0
+      result[last_idx] += part
+    else
+      result << part
+      last_idx += 1
+    end
+  end
+
+  result.join("\n")
+end
+
 get "/" do
   @threads = db[:threads]
   erb :threads
@@ -26,20 +46,16 @@ get "/:author/:thread_id" do
     where { images_count > 0 }
 
   @posts = scope.dup.
-    where { number > start_number }.
+    where { number >= start_number }.
     order("number asc").
     limit(10).
-    to_a
+    to_a.
+    map { |post| post[:content] = cleanup_content(post[:content]); post }
 
-  @posts.each_with_index do |post, idx|
-    @posts[idx][:content] = post[:content].
-      split("<br>").
-      map { |chunk| "<p>" + chunk.strip + "</p>" }.
-      join("\n")
-  end
+  @post = @posts.shift
 
   if @posts.any?
-    @next_id = @posts.last[:number]
+    @next_id = @posts.shift[:number]
   end
 
   erb :thread

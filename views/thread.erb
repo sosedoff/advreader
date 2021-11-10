@@ -16,8 +16,9 @@
       .messageContent {
         font-family: "Georgia";
         font-size: 18px;
-        border-bottom: 3px dashed #cfcfcf;
+        // border-bottom: 3px dashed #cfcfcf;
         margin-bottom: 25px;
+        color: #2a292e;
       }
 
       .messageContent img {
@@ -31,8 +32,9 @@
       }
 
       blockquote.quoteContainer .quote {
-        background: #333;
+        background: #ECE8E2;
         padding: 8px;
+        border-radius: 3px;
       }
 
       blockquote.quoteContainer .quoteExpand {
@@ -57,6 +59,13 @@
         font-weight: 700;
         font-size: 20px;
         color: #241149;
+        text-align: center;
+      }
+
+      .author {
+        font-size: 12px;
+        font-weight: normal;
+        color: #aaa;
       }
     </style>
   </head>
@@ -64,12 +73,12 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-8 offset-md-2">
-          <% @posts.each do |post| %>
-            <div class="meta">
-              <%= post[:timestamp] %> <!-- by <%= post[:author] %>-->
-            </div>
-            <%= post[:content] %>
-          <% end %>
+          <div class="meta">
+            <%= @post[:timestamp] %>
+            <div class="author">by <%= @post[:author] %></div>
+          </div>
+
+          <%= @post[:content] %>
 
           <% if @next_id %>
             <div class="navigation">
@@ -79,6 +88,16 @@
         </div>
       </div>
     </div>
+    <script>
+      function removeInlineStyles(selector) {
+        var elements = document.querySelectorAll(selector);
+        for (el of elements) {
+          el.removeAttribute("style");
+        }
+      }
+
+      removeInlineStyles(".messageContent span");
+    </script>
   </body>
 </html>
 
