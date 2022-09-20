@@ -1,6 +1,6 @@
 # ADVReader
 
-A tiny Sinatra application to download and read ride reports from [ADVRider](advrider.com)
+A tiny Sinatra application to download and read ride reports from [ADVRider](https://www.advrider.com/f/)
 
 ## Installation
 
