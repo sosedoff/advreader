@@ -1,3 +1,10 @@
+<h2>Scrape Thread</h2>
+<form action="/scrape" method="post">
+  <input type="text" name="url" autocomplete="off" placeholder="Add advrider forum link" />
+  <input type="submit" value="Scrape Thread" />
+</form>
+
+<h2>Available Threads</h2>
 <% @threads.each do |thread| %>
   <div><a href="/<%= thread[:author] %>/<%= thread[:id] %>"><%= thread[:id] %></div>
 <% end %>
