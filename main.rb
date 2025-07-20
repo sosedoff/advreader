@@ -56,7 +56,7 @@ def scrape_thread(url)
     page_file = "./pages/#{page_id}.html"
 
     # Fetch from live source or from cache
-    if File.exists?(page_file)
+    if File.exist?(page_file)
       puts "Loading from cache: #{page_file}"
       doc = Nokogiri::HTML(File.read(page_file))
     else
